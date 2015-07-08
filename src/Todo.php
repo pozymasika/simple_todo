@@ -29,16 +29,17 @@
         */
         public function read($id){
             global $db;
-            $sql = "SELECT id,title,completed FROM todo_items WHERE id=:id";
+            $sql = "SELECT id,title,completed FROM todo_items WHERE id=:id LIMIT 1";
             $conn = $db -> prepare($sql);
             $conn -> execute(array(':id' => $id));
-            return $conn -> fetchColumn();
+            $results = $conn -> fetchAll();
+            return $results[0];
         }
         /**Reads all _todo items.
         */
         public function batch_read(){
             global $db;
-            $sql = "SELECT id,title,completed FROM todo_items";
+            $sql = "SELECT id,title,completed FROM todo_items ORDER BY id DESC";
             $conn = $db -> prepare($sql);
             $conn -> execute();
             return $conn -> fetchAll();
