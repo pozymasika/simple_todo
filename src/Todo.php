@@ -65,5 +65,15 @@
             $conn  = $db -> prepare($sql);
             $conn -> execute(array(':id' => $id));
         }
+
+        /**Mark a _todo item as complete
+        *@param int $id - the item id
+        */
+        public function mark_complete($id){
+            global $db;
+            $sql = "UPDATE todo_items SET completed=1 WHERE id=:id";
+            $conn = $db -> prepare($sql);
+            $conn -> execute(array(':id' => $id));
+        }
     }
 ?>
